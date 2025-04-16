@@ -1,14 +1,18 @@
 package com.kyoxsu.blackjackfx.views;
 
+import com.kyoxsu.blackjackfx.BlackjackApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class GameView {
+import java.io.IOException;
 
+public class GameView
+{
     @FXML
     private TextField bankGameField;
 
@@ -49,8 +53,17 @@ public class GameView {
     }
 
     @FXML
-    void onLeave(ActionEvent event) {
-
+    void onLeave(ActionEvent event)
+    {
+        try
+        {
+            Scene loadMainScene = BlackjackApplication.getInstance().loadMainScene();
+            BlackjackApplication.getInstance().getStage().setScene(loadMainScene);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -62,5 +75,4 @@ public class GameView {
     void onValidate(ActionEvent event) {
 
     }
-
 }

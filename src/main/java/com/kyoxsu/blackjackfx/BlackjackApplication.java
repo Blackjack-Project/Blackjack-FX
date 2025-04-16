@@ -39,13 +39,23 @@ public class BlackjackApplication extends Application
         this.stage.show();
     }
 
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     public static void main(String[] args) {
         launch();
     }
 
-    // TODO : Ajouter les différentes méthodes nécéssaires pour basculer d'une
-    //  fenêtre à une autre
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public static BlackjackApplication getInstance() {
+        return application;
+    }
 
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public Stage getStage() {
+        return stage;
+    }
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
     public Scene loadLoginScene() throws IOException

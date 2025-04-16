@@ -1,10 +1,14 @@
 package com.kyoxsu.blackjackfx.views;
 
+import com.kyoxsu.blackjackfx.BlackjackApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class UserCreationView {
 
@@ -21,13 +25,22 @@ public class UserCreationView {
     private TextField usernameField;
 
     @FXML
-    void onCreateUser(ActionEvent event) {
-
+    void onCreateUser(ActionEvent event)
+    {
+        // TODO : Système de création d'un utilisateur
     }
 
     @FXML
-    void onReturn(ActionEvent event) {
-
+    void onReturn(ActionEvent event)
+    {
+        try
+        {
+            Scene loadLoginScene = BlackjackApplication.getInstance().loadLoginScene();
+            BlackjackApplication.getInstance().getStage().setScene(loadLoginScene);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
-
 }

@@ -1,9 +1,13 @@
 package com.kyoxsu.blackjackfx.views;
 
+import com.kyoxsu.blackjackfx.BlackjackApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+
+import java.io.IOException;
 
 public class RoomView {
 
@@ -20,13 +24,32 @@ public class RoomView {
     private Label roomTitleLabel;
 
     @FXML
-    void onLeave(ActionEvent event) {
-
+    void onLeave(ActionEvent event)
+    {
+        try
+        {
+            Scene loadMainScene = BlackjackApplication.getInstance().loadMainScene();
+            BlackjackApplication.getInstance().getStage().setScene(loadMainScene);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
-    void onReady(ActionEvent event) {
-
+    void onReady(ActionEvent event)
+    {
+        // TODO : Faire les différents calculs pour savoir quand la partie se lance
+        try
+        {
+            Scene loadGameScene = BlackjackApplication.getInstance().loadGameScene();
+            BlackjackApplication.getInstance().getStage().setScene(loadGameScene);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
 }
