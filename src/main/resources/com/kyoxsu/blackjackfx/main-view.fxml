@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.*?>
 
-<VBox alignment="CENTER" spacing="15" xmlns:fx="http://javafx.com/fxml" fx:controller="com.kyoxsu.blackjackfx.views.MainView">
-    <Label text="Blackjack"/>
-    <Button text="Search room" onAction="#onSearchRoom"/>
-    <Button text="Create room" onAction="#onCreateRoom"/>
-    <Button text="Settings" onAction="#onSettings"/>
-    <Button text="Logout" onAction="#onLogout"/>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="15" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.kyoxsu.blackjackfx.views.MainView">
+    <Label text="Blackjack" />
+    <Button onAction="#onJoinRoom" text="Join room" />
+    <Button onAction="#onCreateRoom" text="Create room" />
+    <Button onAction="#onSettings" text="Settings" />
+    <Button onAction="#onLogout" text="Logout" />
 </VBox>
