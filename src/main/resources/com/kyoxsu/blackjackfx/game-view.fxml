@@ -1,57 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.*?>
 
-<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="com.kyoxsu.blackjackfx.views.GameView">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.kyoxsu.blackjackfx.views.GameView">
 
     <!-- Top section -->
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Leave" onAction="#onLeave"/>
-        <Label fx:id="playerTurnLabel" text="[Player]'s Turn"/>
-        <Label text="Sold:"/>
-        <TextField fx:id="soldField" prefWidth="80" editable="false"/>
+    <HBox alignment="CENTER" spacing="10">
+        <Button onAction="#onLeave" text="Leave" />
+        <Label fx:id="playerTurnLabel" text="[Player]'s Turn" />
+        <Label text="Sold:" />
+        <TextField fx:id="soldField" editable="false" prefWidth="80" />
     </HBox>
-
-    <!-- Dashboard list -->
-    <Label text="Dashboard"/>
-    <ListView fx:id="playerList" prefHeight="120"/>
 
     <!-- Bank's game -->
-    <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Bank's game:"/>
-        <TextField fx:id="bankGameField" prefWidth="300" editable="false"/>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Bank's game:" />
+        <TextField fx:id="bankGameField" editable="false" />
+      <padding>
+         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+      </padding>
     </HBox>
 
-    <Separator/>
-
-    <!-- Player's bet -->
-    <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Player's total bet:"/>
-        <TextField fx:id="totalBetField" prefWidth="80" editable="false"/>
-    </HBox>
-
-    <!-- Player's game -->
-    <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Player's game:"/>
-        <TextField fx:id="playerGameField" prefWidth="300" editable="false"/>
-    </HBox>
-
-    <!-- Actions -->
-    <Label text="Actions"/>
-    <HBox spacing="10" alignment="CENTER">
-        <Label text="Bet:"/>
-        <TextField fx:id="betField" prefWidth="80"/>
-        <Button text="Validate" onAction="#onValidate"/>
-    </HBox>
-
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Double" onAction="#onDouble"/>
-        <Button text="Distribute" onAction="#onDistribute"/>
-        <Button text="Assure" onAction="#onAssure"/>
-        <Button text="Split" onAction="#onSplit"/>
-    </HBox>
+    <Separator />
+   <HBox alignment="CENTER" spacing="5.0">
+      <children>
+         <VBox>
+            <children>
+            
+                <!-- Dashboard list -->
+                <Label text="Dashboard" />
+                <ListView fx:id="playerList" prefHeight="120" />
+            </children>
+         </VBox>
+         <VBox spacing="5.0">
+            <children>
+            
+                <!-- Player's bet -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Player's total bet:" />
+                    <TextField fx:id="totalBetField" editable="false" prefWidth="80" />
+                </HBox>
+            
+                <!-- Player's game -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Player's game:" />
+                    <TextField fx:id="playerGameField" editable="false" prefWidth="300" />
+                </HBox>
+            
+                <!-- Actions -->
+                <Label text="Actions" />
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="Bet:" />
+                    <TextField fx:id="betField" prefWidth="80" />
+                    <Button onAction="#onValidate" text="Validate" />
+                </HBox>
+            
+                <HBox alignment="CENTER" spacing="10">
+                    <Button onAction="#onDouble" text="Double" />
+                    <Button onAction="#onDistribute" text="Distribute" />
+                    <Button onAction="#onAssure" text="Assure" />
+                    <Button onAction="#onSplit" text="Split" />
+                </HBox>
+            </children>
+         </VBox>
+      </children>
+      <VBox.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </VBox.margin>
+      <padding>
+         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+      </padding>
+   </HBox>
 
     <!-- Game Log -->
-    <TextArea fx:id="gameLog" editable="false" prefHeight="150"/>
+    <TextArea fx:id="gameLog" editable="false" />
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
 </VBox>
