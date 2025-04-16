@@ -1,6 +1,21 @@
-# Blackjack-FX
+# Blackjack FX
 
-![diagrammeCasUtilisation](https://github.com/user-attachments/assets/e875a237-5a96-40d5-a9e4-f63e96a3c132)
-![maquetteInterface](https://github.com/user-attachments/assets/546556fe-8992-4732-898c-a2b6bc9ec203)
+Thème : Le but, est de créer une application lourde autour du thème du blackjack la plus fidèle possible.
 
-[mcd.xlsx](https://github.com/user-attachments/files/19776218/mcd.xlsx)
+> Lien du répos distant : [Github](https://github.com/Blackjack-Project/Blackjack-FX.git)
+
+## Diagramme des cas d'utilisation
+
+![diagrammeCasUtilisation](assets/diagrammeCasUtilisation.svg)
+
+## Diagramme de classe : Architecture MVVM + Domaine
+
+![diagrammeDeClasses](assets/diagrammeDeClasses.svg)
+
+## Maquette interface
+
+![maquetteInterface](assets/maquetteInterface.svg)
+
+## MCD
+
+![mcd](assets/mcd.xlsx)

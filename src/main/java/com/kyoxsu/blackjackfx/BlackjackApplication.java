@@ -26,4 +26,7 @@ public class BlackjackApplication extends Application
     public static void main(String[] args) {
         launch();
     }
+
+    // TODO : Ajouter les différentes méthodes nécéssaires pour basculer d'une
+    //  fenêtre à une autre
 }
