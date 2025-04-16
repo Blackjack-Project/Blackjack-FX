@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 //------------------------------------------------------------------------------
 /**
+ * C'est le point d'entrée de l'application.
+ * Elle contient notamment toutes les méthodes nécéssaires au basculement entre
+ * les différentes scenes.
+ *
  * @author Kyo
  * @modif Kyo : 2025-04-15 : Création.
  */
@@ -31,6 +35,7 @@ public class BlackjackApplication extends Application
         Scene scene = loadLoginScene();
         this.stage.setTitle("-- Three Layers Project --");
         this.stage.setScene(scene);
+        this.stage.setMaximized(true);
         this.stage.show();
     }
 
