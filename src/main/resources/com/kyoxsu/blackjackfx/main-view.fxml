@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="15" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.kyoxsu.blackjackfx.views.MainView">
+<VBox alignment="CENTER" spacing="15" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kyoxsu.blackjackfx.views.MainView">
     <Label text="Blackjack" />
     <Button onAction="#onJoinRoom" text="Join room" />
     <Button onAction="#onCreateRoom" text="Create room" />
     <Button onAction="#onSettings" text="Settings" />
     <Button onAction="#onLogout" text="Logout" />
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
 </VBox>

@@ -16,6 +16,9 @@ public class SearchView {
     private Label errorLabel;
 
     @FXML
+    private TextField roomID;
+
+    @FXML
     private ListView<?> roomList;
 
     @FXML

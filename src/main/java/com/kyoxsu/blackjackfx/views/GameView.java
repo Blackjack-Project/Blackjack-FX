@@ -1,20 +1,19 @@
 package com.kyoxsu.blackjackfx.views;
 
-import com.kyoxsu.blackjackfx.BlackjackApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
+import com.kyoxsu.blackjackfx.BlackjackApplication;
 import java.io.IOException;
+import javafx.scene.Scene;
 
-public class GameView
-{
+public class GameView {
+
     @FXML
-    private TextField bankGameField;
+    private Label bankGameLabel;
 
     @FXML
     private TextField betField;
@@ -35,7 +34,7 @@ public class GameView
     private TextField soldField;
 
     @FXML
-    private TextField totalBetField;
+    private Label totalBetField;
 
     @FXML
     void onAssure(ActionEvent event) {
@@ -76,4 +75,5 @@ public class GameView
     void onValidate(ActionEvent event) {
 
     }
+
 }

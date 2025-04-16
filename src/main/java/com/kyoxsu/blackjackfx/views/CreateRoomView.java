@@ -4,15 +4,15 @@ import com.kyoxsu.blackjackfx.BlackjackApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
 import java.io.IOException;
 
 public class CreateRoomView
 {
+    @FXML
+    private ToggleGroup RadioGroup;
+
     @FXML
     private Label errorLabel;
 
@@ -26,7 +26,14 @@ public class CreateRoomView
     private PasswordField roomPasswordField;
 
     @FXML
-    private ChoiceBox<?> visibilityChoiceBox;
+    void onPrivateSelected(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onPublicSelected(ActionEvent event) {
+
+    }
 
     @FXML
     void onCreateRoom(ActionEvent event)

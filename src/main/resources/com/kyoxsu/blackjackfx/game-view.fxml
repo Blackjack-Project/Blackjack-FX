@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.kyoxsu.blackjackfx.views.GameView">
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kyoxsu.blackjackfx.views.GameView">
 
     <!-- Top section -->
     <HBox alignment="CENTER" spacing="10">
@@ -23,7 +23,7 @@
     <!-- Bank's game -->
     <HBox alignment="CENTER_LEFT" spacing="10">
         <Label text="Bank's game:" />
-        <TextField fx:id="bankGameField" editable="false" />
+      <Label fx:id="bankGameLabel" />
       <padding>
          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
       </padding>
@@ -46,7 +46,7 @@
                 <!-- Player's bet -->
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <Label text="Player's total bet:" />
-                    <TextField fx:id="totalBetField" editable="false" prefWidth="80" />
+                  <Label fx:id="totalBetField" />
                 </HBox>
             
                 <!-- Player's game -->
