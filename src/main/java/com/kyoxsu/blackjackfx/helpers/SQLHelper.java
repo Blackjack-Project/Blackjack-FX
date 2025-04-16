@@ -1,4 +1,4 @@
-package com.kyoxsu.blackjackfx.helper;
+package com.kyoxsu.blackjackfx.helpers;
 
 import java.sql.*;
 //------------------------------------------------------------------------------

@@ -46,5 +46,7 @@ public class Deck
         // le paquet doit diminuer
 
         // Voir si je prends la première ?
+
+        // Comment l'atttribuer à un joueur ?
     }
 }
