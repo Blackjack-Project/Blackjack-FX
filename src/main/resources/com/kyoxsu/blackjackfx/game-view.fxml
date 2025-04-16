@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.kyoxsu.blackjackfx.views.GameView"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="com.kyoxsu.blackjackfx.views.GameView">
 
-</AnchorPane>
+    <!-- Top section -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Leave" onAction="#onLeave"/>
+        <Label fx:id="playerTurnLabel" text="[Player]'s Turn"/>
+        <Label text="Sold:"/>
+        <TextField fx:id="soldField" prefWidth="80" editable="false"/>
+    </HBox>
+
+    <!-- Dashboard list -->
+    <Label text="Dashboard"/>
+    <ListView fx:id="playerList" prefHeight="120"/>
+
+    <!-- Bank's game -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Bank's game:"/>
+        <TextField fx:id="bankGameField" prefWidth="300" editable="false"/>
+    </HBox>
+
+    <Separator/>
+
+    <!-- Player's bet -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Player's total bet:"/>
+        <TextField fx:id="totalBetField" prefWidth="80" editable="false"/>
+    </HBox>
+
+    <!-- Player's game -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Player's game:"/>
+        <TextField fx:id="playerGameField" prefWidth="300" editable="false"/>
+    </HBox>
+
+    <!-- Actions -->
+    <Label text="Actions"/>
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Bet:"/>
+        <TextField fx:id="betField" prefWidth="80"/>
+        <Button text="Validate" onAction="#onValidate"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Double" onAction="#onDouble"/>
+        <Button text="Distribute" onAction="#onDistribute"/>
+        <Button text="Assure" onAction="#onAssure"/>
+        <Button text="Split" onAction="#onSplit"/>
+    </HBox>
+
+    <!-- Game Log -->
+    <TextArea fx:id="gameLog" editable="false" prefHeight="150"/>
+</VBox>

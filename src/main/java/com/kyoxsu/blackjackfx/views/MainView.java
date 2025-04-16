@@ -1,6 +1,28 @@
 package com.kyoxsu.blackjackfx.views;
 
-public class MainView
-{
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+
+public class MainView {
+
+    @FXML
+    void onCreateRoom(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onLogout(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSearchRoom(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSettings(ActionEvent event) {
+
+    }
 
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.kyoxsu.blackjackfx.views.CreateRoomView"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="com.kyoxsu.blackjackfx.views.CreateRoomView">
+    <Label text="Create Room"/>
+    <ChoiceBox fx:id="visibilityChoiceBox"/>
+    <Slider fx:id="playerNumberSlider" min="2" max="6"/>
+    <TextField fx:id="roomNameField" promptText="Room name"/>
+    <PasswordField fx:id="roomPasswordField" promptText="Room password (optional)"/>
+    <Label fx:id="errorLabel" textFill="red"/>
+    <Button text="Create" onAction="#onCreateRoom"/>
+    <Button text="Return" onAction="#onReturn"/>
+</VBox>
