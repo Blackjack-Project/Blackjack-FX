@@ -3,7 +3,6 @@ package com.kyoxsu.blackjackfx.views;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-
 public class MainView {
 
     @FXML

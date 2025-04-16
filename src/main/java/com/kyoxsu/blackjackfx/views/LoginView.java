@@ -6,7 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginView {
+public class LoginView
+{
 
     @FXML
     private Label errorLabel;
@@ -24,7 +25,7 @@ public class LoginView {
 
     @FXML
     void onLogin(ActionEvent event) {
-
+        
     }
 
 }
