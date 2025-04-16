@@ -31,6 +31,7 @@ public class UserView {
         {
             Scene loadMainScene = BlackjackApplication.getInstance().loadMainScene();
             BlackjackApplication.getInstance().getStage().setScene(loadMainScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {

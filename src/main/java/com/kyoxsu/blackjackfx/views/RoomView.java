@@ -30,6 +30,7 @@ public class RoomView {
         {
             Scene loadMainScene = BlackjackApplication.getInstance().loadMainScene();
             BlackjackApplication.getInstance().getStage().setScene(loadMainScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {
@@ -45,6 +46,7 @@ public class RoomView {
         {
             Scene loadGameScene = BlackjackApplication.getInstance().loadGameScene();
             BlackjackApplication.getInstance().getStage().setScene(loadGameScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {

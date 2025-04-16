@@ -29,6 +29,7 @@ public class SearchView {
         {
             Scene loadRoomScene = BlackjackApplication.getInstance().loadRoomScene();
             BlackjackApplication.getInstance().getStage().setScene(loadRoomScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {
@@ -43,6 +44,7 @@ public class SearchView {
         {
             Scene loadMainScene = BlackjackApplication.getInstance().loadMainScene();
             BlackjackApplication.getInstance().getStage().setScene(loadMainScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {

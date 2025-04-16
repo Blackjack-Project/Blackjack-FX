@@ -28,6 +28,7 @@ public class LoginView
         {
             Scene loadUserCreationScene = BlackjackApplication.getInstance().loadUserCreationScene();
             BlackjackApplication.getInstance().getStage().setScene(loadUserCreationScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {
@@ -46,6 +47,7 @@ public class LoginView
         {
             Scene loadMainScene = BlackjackApplication.getInstance().loadMainScene();
             BlackjackApplication.getInstance().getStage().setScene(loadMainScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {

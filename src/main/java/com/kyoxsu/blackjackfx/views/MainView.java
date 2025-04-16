@@ -16,6 +16,7 @@ public class MainView {
         {
             Scene loadCreateRoomScene = BlackjackApplication.getInstance().loadCreateRoomScene();
             BlackjackApplication.getInstance().getStage().setScene(loadCreateRoomScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {
@@ -30,6 +31,7 @@ public class MainView {
         {
             Scene loadSearchScene = BlackjackApplication.getInstance().loadSearchScene();
             BlackjackApplication.getInstance().getStage().setScene(loadSearchScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {
@@ -44,6 +46,7 @@ public class MainView {
         {
             Scene loadLoginScene = BlackjackApplication.getInstance().loadLoginScene();
             BlackjackApplication.getInstance().getStage().setScene(loadLoginScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {
@@ -58,6 +61,7 @@ public class MainView {
         {
             Scene loadUserScene = BlackjackApplication.getInstance().loadUserScene();
             BlackjackApplication.getInstance().getStage().setScene(loadUserScene);
+            BlackjackApplication.getInstance().getStage().setMaximized(true);
         }
         catch (IOException e)
         {
