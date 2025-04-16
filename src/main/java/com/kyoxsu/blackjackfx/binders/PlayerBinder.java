@@ -1,4 +1,6 @@
 package com.kyoxsu.blackjackfx.binders;
 
-public class PlayerBinder {
+public class PlayerBinder
+{
+
 }
