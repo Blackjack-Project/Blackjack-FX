@@ -24,7 +24,7 @@ Pour lancer le projet il est nécéssaire d'accéder à la base.
 
  [mcd.xlsx](assets/mcd.xlsx) 
 
-![screenshotMcd](/Users/kyoxsu/Desktop/PROMEO/2024-2025/concevoirEtDevelopperDesApplications/jacquot/projetBlackJack/blackjackFx/assets/screenshotMcd.png)
+![screenshotMcd](assets/screenshotMcd.png)
 
 ## Base de données
 
