@@ -1,7 +1,6 @@
 package com.kyoxsu.blackjackfx.models;
 
 import com.kyoxsu.blackjackfx.helpers.SQLHelper;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +33,7 @@ public class Room
         this.visibility = visibility;               // true -> privée / false -> public
         // ---
         this.roomId = UUID.randomUUID().toString(); // Création d'un id par défaut
-        this.state = false;                         // En attente de joueurs
+        this.state = true;                          // En attente de joueurs
         this.lPlayers = new ArrayList<>();
     }
     // Permet de récupérer / créer un salon de A à Z manuellement (sauf la liste des joueurs)
