@@ -1,5 +1,6 @@
 package com.kyoxsu.blackjackfx;
 
+import com.kyoxsu.blackjackfx.models.Player;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,8 @@ import java.io.IOException;
 //------------------------------------------------------------------------------
 public class BlackjackApplication extends Application
 {
+    public static Player player = null;
+    // ---
     private Stage stage = new Stage();
     private static BlackjackApplication application;
     //private static EntityBinder entityBinder;

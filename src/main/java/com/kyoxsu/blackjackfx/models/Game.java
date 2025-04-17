@@ -10,8 +10,6 @@ package com.kyoxsu.blackjackfx.models;
 //------------------------------------------------------------------------------
 public class Game
 {
-    public static Player player = null;
-
     // TODO : Faire un listing des différentes phases de la partie
 
     //--------------------------------------------------------------------------

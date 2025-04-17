@@ -4,11 +4,12 @@ import com.kyoxsu.blackjackfx.BlackjackApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-
 import java.io.IOException;
 
-public class MainView {
-
+public class MainView
+{
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     @FXML
     void onCreateRoom(ActionEvent event)
     {
@@ -24,6 +25,8 @@ public class MainView {
         }
     }
 
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     @FXML
     void onJoinRoom(ActionEvent event)
     {
@@ -39,9 +42,13 @@ public class MainView {
         }
     }
 
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     @FXML
     void onLogout(ActionEvent event)
     {
+        // --- Suppression du player en cours
+        BlackjackApplication.player = null;
         try
         {
             Scene loadLoginScene = BlackjackApplication.getInstance().loadLoginScene();
@@ -54,9 +61,12 @@ public class MainView {
         }
     }
 
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     @FXML
     void onSettings(ActionEvent event)
     {
+        // TODO : Faire remonter les données de l'utilisateur
         try
         {
             Scene loadUserScene = BlackjackApplication.getInstance().loadUserScene();
@@ -68,5 +78,4 @@ public class MainView {
             throw new RuntimeException(e);
         }
     }
-
 }

@@ -11,26 +11,37 @@ import java.sql.*;
 //------------------------------------------------------------------------------
 public class SQLHelper
 {
-    private static final String URL = "jdbc:mysql://localhost:3306/pharmeo";
+    private static final String URL = "jdbc:mysql://localhost:3306/blackjack";
     private static final String USER = "root";
     private static final String PASSWORD = "Kyo100705tete*";
+
+    private static Connection con;
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
     public static Connection getConnection()
     {
-        Connection con = null;
-        try
+        Connection con;
+        // ---
+        if (SQLHelper.con == null)
         {
-            con = DriverManager.getConnection(URL, USER, PASSWORD);
+            try
+            {
+                con = DriverManager.getConnection(URL, USER, PASSWORD);
+            }
+            catch (SQLException e)
+            {
+                throw new RuntimeException(e);
+            }
+            if (con != null)
+            {
+                System.out.println("Connexion établie avec succès");
+            }
+            con = con;
         }
-        catch (SQLException e)
+        else
         {
-            throw new RuntimeException(e);
-        }
-        if (con != null)
-        {
-            System.out.println("Connexion établie avec succès");
+            con = SQLHelper.con;
         }
         return con;
     }

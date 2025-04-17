@@ -18,29 +18,6 @@ public class TestsHelper
 {
     public static void main(String[] args)
     {
-        Player player = new Player("Kyo", "1234");
-        player.createPlayer();
 
-        player.setUsername("oyK");
-        player.setPassword("4321");
-
-        player.savePlayer();
-
-        player.getPlayer("");
-
-        //----------------------------------------------------------------------
-
-        ArrayList<Card> lCards = Card.getAllCards();
-        System.out.println(lCards.get(0));
-
-        //----------------------------------------------------------------------
-
-        Deck deck = new Deck();
-        deck.shuffle(7); // Riffle shuffle - mélange à l'américaine
-        deck.draw();
-
-        //----------------------------------------------------------------------
-
-        //Room room = new Room("", "", "");
     }
 }

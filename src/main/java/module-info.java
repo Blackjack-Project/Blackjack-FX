@@ -3,6 +3,7 @@ module com.kyoxsu.blackjackfx {
     requires javafx.fxml;
     requires java.sql;
     requires jdk.jshell;
+    requires java.net.http;
 
 
     opens com.kyoxsu.blackjackfx to javafx.fxml;

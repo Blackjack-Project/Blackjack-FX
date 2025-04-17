@@ -21,7 +21,7 @@ public class Player
     private boolean role;               // Joueur ou hôte
     private String cards;
     private double money;
-    private String roomId;              // UUID du salon dans lequel il se trouve
+    private String room;                // UUID du salon dans lequel il se trouve
     private int position;
     // ---
     private ArrayList<Card> lCards;     // Liste issue de la conversion de "cards"
@@ -34,89 +34,108 @@ public class Player
         this.password = password;
         // ---
         this.role = false;                  // Role à "joueur" par défaut"
-        this.lCards = new ArrayList<>();
-        this.roomId = null;                 // Par défaut pas de room
-    }
-    // Permet de récupérer / créer un joueur de A à Z manuellement (sauf les cartes)
-    public Player(String username, String password, boolean role,
-                  double money, String roomId, int position)
-    {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.money = money;
-        this.roomId = roomId;
-        this.position = position;
+        this.lCards = new ArrayList<>();    // Pas de cartes
+        this.room = null;                   // Par défaut pas de room
+        this.position = -1;                 // Pas de position -> car pas dans un salon
+        this.money = 0.0d;                  // Pas d'argent car vient d'être créé
     }
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public static ArrayList<Player> getAllPlayers(String roomId)
+    public boolean isPlayerInDb()
     {
-        ArrayList<Player> lPlayers = new ArrayList<>();
+        boolean inDb = false;
         Connection con = SQLHelper.getConnection();
 
-        // --- On ne récupère que les joueurs qui se trouvent dans le salon recherché
-        String sql = "SELECT * FROM room WHERE roomId = ?";
+        // --- Vérification de l'existence du joueur
+        String sql = "SELECT * FROM player WHERE username = ?";
         try
         {
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, roomId);
-            // ---
-            ResultSet rs = pstmt.executeQuery();
-            // ---
-            while (rs.next())
+            pstmt.setString(1, username);
+            ResultSet res = pstmt.executeQuery();
+
+            // --- Si on a un résultat, on dit que c'est vrai
+            if (res.next())
             {
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                boolean role    = rs.getBoolean("role");
-                double money    = rs.getDouble("money");
-                String sRoomId  = rs.getString("roomId"); // A voir si on le supprime
-                int position    = rs.getInt("position");
-
-                // --- Création du joueur
-                Player player = new Player(username, password, role, money, sRoomId, position);
-
-                // --- Récupération de toutes ses cartes
-                ArrayList<Card> lCards = player.getAllPlayersCard();
-                player.setlCards(lCards);
-
-                // --- Ajout du joueur à la liste des salons
-                lPlayers.add(player);
+                inDb = true;
             }
         }
         catch (SQLException e)
         {
             throw new RuntimeException(e);
         }
-        return lPlayers;
+        return inDb;
     }
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public ArrayList<Card> getAllPlayersCard()
+    public static Player login(String username, String password)
     {
-        // TODO : Il faut déformater les cartes de la base
+        Player player = null;
+        Connection con = SQLHelper.getConnection();
 
-        ArrayList<Card> lCards = new ArrayList<>();
+        // --- Vérification de l'existence du joueur
+        String sql = "SELECT * FROM player WHERE username = ?";
+        try
+        {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, username);
+            ResultSet res = pstmt.executeQuery();
 
-        String cards = getCards();
-        cards.trim();
-
-        String[] aCards = cards.split("/");
-
-
-        return lCards;
+            // --- Si on a un résultat, on dit que c'est vrai
+            if (res.next())
+            {
+                String dbUsername = res.getString("username");
+                String dbPassword = res.getString("password");
+                // ---
+                boolean role    = res.getBoolean("role");
+                double money    = res.getDouble("money");
+                String room     = res.getString("room");
+                int position    = res.getInt("position");
+                // ---
+                if (password.equals(password))
+                {
+                    player = new Player(dbUsername, dbPassword);
+                    player.setRole(role);
+                    player.setMoney(money);
+                    player.setRoom(room);
+                    player.setPosition(position);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        return player;
     }
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    // Appelée lors que le joueur se crée un compte
-    public void createPlayer()
+    public void writePlayer()
     {
         Connection con = SQLHelper.getConnection();
-        String sql = "INSERT INTO player (username, password, role, cards, money, " +
-                "roomId, position) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        // --- Vérification de l'existence du joueur
+        String sql = "";
+        String cards = null;
+        boolean inDb = isPlayerInDb();
+        // ---
+        if (!inDb)
+        {
+            sql = "INSERT INTO player (username, password, role, cards, money, " +
+                    "room, position) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        }
+        else
+        {
+            sql = "UPDATE player SET password = ?, role = ?, cards = ?, money = ?," +
+                    " room = ?, position = ? WHERE username = ?";
+
+            // --- A la création le player n'a pas de cards
+            cards = encodeCards();
+        }
+        // ---
         try
         {
             PreparedStatement pstmt = con.prepareStatement(sql);
@@ -124,11 +143,11 @@ public class Player
             pstmt.setString(2, password);
             pstmt.setBoolean(3, role);
             // ---
-            String cards = formatCards();
+
             pstmt.setString(4, cards);
             // ---
             pstmt.setDouble(5, money);
-            pstmt.setString(6, roomId);
+            pstmt.setString(6, room);
             pstmt.setInt(7, position);
 
             int lignesAjoutees = pstmt.executeUpdate();
@@ -138,55 +157,6 @@ public class Player
         {
             throw new RuntimeException(e);
         }
-    }
-
-    //--------------------------------------------------------------------------
-    //--------------------------------------------------------------------------
-    public void login(String username, String password)
-    {
-        // TODO : Vérifier l'existance du joueur dans la base et ensuite que son
-        //  mot de passe correspond
-
-        // --- On récupère le joueur
-        getPlayer(username);
-    }
-
-    //--------------------------------------------------------------------------
-    //--------------------------------------------------------------------------
-    // Lorsque le joueur modifie ses informations
-    public void savePlayer() // On sauvegarde les modifications sur le joueur
-    {
-        Connection con = SQLHelper.getConnection();
-        String sql = "UPDATE player SET password = ?, role = ?, cards = ?, money = ?," +
-                " roomId = ?, position = ? WHERE username = ?";
-        try
-        {   PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            pstmt.setBoolean(3, role);
-            // ---
-            String cards = formatCards();
-            pstmt.setString(4, cards);
-            // ---
-            pstmt.setDouble(5, money);
-            pstmt.setString(6, roomId);
-            pstmt.setInt(7, position);
-
-            int lignesModifiees = pstmt.executeUpdate();
-            System.out.println(lignesModifiees + " ligne(s) modifiée(s).");
-        }
-        catch (SQLException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
-
-    //--------------------------------------------------------------------------
-    //--------------------------------------------------------------------------
-    public void getPlayer(String username) // On récupère toutes les informations du joueur depuis la base
-    {
-        // Méthode permettant de récupérer un joueur
-        // Avec son prénom ?
     }
 
     //--------------------------------------------------------------------------
@@ -214,7 +184,7 @@ public class Player
         Room room = new Room(name, "", visibility);
 
         // --- On set l'id du salon
-        this.roomId = room.getRoomId();
+        this.room = room.getRoomId();
 
         // --- On rejoint le salon
         joinRoom(room);
@@ -243,15 +213,81 @@ public class Player
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public String formatCards()
+    public static ArrayList<Player> getAllPlayers(String roomId)
     {
-        String cards = "";
+        ArrayList<Player> lPlayers = new ArrayList<>();
+        Connection con = SQLHelper.getConnection();
+
+        // --- On ne récupère que les joueurs qui se trouvent dans le salon recherché
+        String sql = "SELECT * FROM room WHERE roomId = ?";
+        try
+        {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, roomId);
+            // ---
+            ResultSet rs = pstmt.executeQuery();
+            // ---
+            while (rs.next())
+            {
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                boolean role    = rs.getBoolean("role");
+                double money    = rs.getDouble("money");
+                String sRoomId  = rs.getString("roomId"); // A voir si on le supprime
+                int position    = rs.getInt("position");
+
+                // --- Création du joueur
+                Player player = new Player(username, password);
+                player.setRole(role);
+                player.setMoney(money);
+                player.setRoom(roomId);
+                player.setPosition(position);
+
+                // --- Récupération de toutes ses cartes
+                ArrayList<Card> lCards = player.decodeCards();
+                player.setlCards(lCards);
+
+                // --- Ajout du joueur à la liste des salons
+                lPlayers.add(player);
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        return lPlayers;
+    }
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public String encodeCards()
+    {
+        // --- Récupération de toutes les cartes
+        String cards = null;
+        // ---
         for (Card card : lCards)
         {
             cards += card.getShortName()+" / ";
         }
         cards.substring(0, cards.length() - 3);
+        // ---
         return cards;
+    }
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public ArrayList<Card> decodeCards()
+    {
+        // TODO : Il faut déformater les cartes de la base
+
+        ArrayList<Card> lCards = new ArrayList<>();
+
+        String cards = getCards();
+        cards.trim();
+
+        String[] aCards = cards.split("/");
+
+        return lCards;
     }
 
     //--------------------------------------------------------------------------
@@ -315,13 +351,13 @@ public class Player
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public String getRoomId()
+    public String getRoom()
     {
-        return roomId;
+        return room;
     }
-    public void setRoomId(String roomId)
+    public void setRoom(String room)
     {
-        this.roomId = roomId;
+        this.room = room;
     }
 
     //--------------------------------------------------------------------------
