@@ -23,8 +23,6 @@ public class Card
     private String shortName;
     private int value;
 
-    public static final ArrayList<Card> ALL_CARDS = getAllCards();
-
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
     public Card(String fullName, String shortName, int value)
@@ -32,6 +30,40 @@ public class Card
         this.fullName = fullName;
         this.shortName = shortName;
         this.value = value;
+    }
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public static Card getCardByShortName(String shortName)
+    {
+        Card card = null;
+        Connection con = SQLHelper.getConnection();
+
+        // --- On ne récupère que les joueurs qui se trouvent dans le salon recherché
+        String sql = "SELECT * FROM card WHERE short_name = ?";
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
+        try
+        {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1,shortName);
+            res = pstmt.executeQuery();
+            // ---
+            while (res.next())
+            {
+                String fullName = res.getString("full_name");
+                int value = res.getInt("value");
+
+                // --- Création du joueur
+                card = new Card(fullName, shortName, value);
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        SQLHelper.close(pstmt, res);
+        return card;
     }
 
     //--------------------------------------------------------------------------

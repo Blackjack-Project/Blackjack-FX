@@ -1,5 +1,17 @@
 package com.kyoxsu.blackjackfx.models;
 
+import com.kyoxsu.blackjackfx.helpers.SQLHelper;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.util.Duration;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 //------------------------------------------------------------------------------
@@ -12,7 +24,8 @@ import java.util.Collections;
 //------------------------------------------------------------------------------
 public class Deck
 {
-    private ArrayList<Card> lCards;
+    private ObservableList<Card> lCards;
+    private String sCards; // La liste de toutes les cartes en string
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
@@ -40,13 +53,65 @@ public class Deck
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public void draw()
+    public Card draw()
     {
-        // Méthode pour piocher des cartes.
-        // le paquet doit diminuer
+        Card card = lCards.get(0);
+        lCards.remove(0);
+        return card;
+    }
 
-        // Voir si je prends la première ?
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public void encodeDeck()
+    {
+        String deckInString = "";
+        for (Card card : lCards)
+        {
+            deckInString += card.getShortName()+" / ";
+        }
+        deckInString.substring(0, deckInString.length()-3);
 
-        // Comment l'atttribuer à un joueur ?
+        setsCards(deckInString);
+    }
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public void decodeDeck()
+    {
+        ObservableList<Card> lCards = FXCollections.observableArrayList();
+
+        String sCards = getsCards();
+        sCards.trim();
+        String[] aCards = sCards.split("/");
+
+        for (String sCard : aCards)
+        {
+            Card card = Card.getCardByShortName(sCard);
+            lCards.add(card);
+        }
+
+        setlCards(lCards);
+    }
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public ObservableList<Card> getlCards()
+    {
+        return lCards;
+    }
+    public void setlCards(ObservableList<Card> lCards)
+    {
+        this.lCards = lCards;
+    }
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public String getsCards()
+    {
+        return sCards;
+    }
+    public void setsCards(String sCards)
+    {
+        this.sCards = sCards;
     }
 }

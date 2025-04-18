@@ -79,12 +79,7 @@ public class BlackjackApplication extends Application
     {
         FXMLLoader loginPanelFxmlLoader = new FXMLLoader(BlackjackApplication.class.getResource("login-view.fxml"));
         Parent root = loginPanelFxmlLoader.load();
-
-        //LoginView loginView = loginPanelFxmlLoader.getController();
-        //loginView.setEntityBinder(entityBinder);
-
         Scene scene = new Scene(root);
-        //Scene scene = new Scene(root, 600, 800); // TODO : A tester
         return scene;
     }
 
@@ -94,10 +89,6 @@ public class BlackjackApplication extends Application
     {
         FXMLLoader userCreationPanelFxmlLoader = new FXMLLoader(BlackjackApplication.class.getResource("user-creation-view.fxml"));
         Parent root = userCreationPanelFxmlLoader.load();
-
-        //LoginView loginView = userCreationPanelFxmlLoader.getController();
-        //loginView.setEntityBinder(entityBinder);
-
         Scene scene = new Scene(root);
         return scene;
     }
@@ -123,10 +114,6 @@ public class BlackjackApplication extends Application
     {
         FXMLLoader mainPanelFxmlLoader = new FXMLLoader(BlackjackApplication.class.getResource("main-view.fxml"));
         Parent root = mainPanelFxmlLoader.load();
-
-        //LoginView loginView = mainPanelFxmlLoader.getController();
-        //loginView.setEntityBinder(entityBinder);
-
         Scene scene = new Scene(root);
         return scene;
     }
@@ -137,10 +124,6 @@ public class BlackjackApplication extends Application
     {
         FXMLLoader searchPanelFxmlLoader = new FXMLLoader(BlackjackApplication.class.getResource("search-view.fxml"));
         Parent root = searchPanelFxmlLoader.load();
-
-        //LoginView loginView = searchPanelFxmlLoader.getController();
-        //loginView.setEntityBinder(entityBinder);
-
         Scene scene = new Scene(root);
         return scene;
     }
@@ -151,10 +134,6 @@ public class BlackjackApplication extends Application
     {
         FXMLLoader createRoomPanelFxmlLoader = new FXMLLoader(BlackjackApplication.class.getResource("create-room-view.fxml"));
         Parent root = createRoomPanelFxmlLoader.load();
-
-        //LoginView loginView = createRoomPanelFxmlLoader.getController();
-        //loginView.setEntityBinder(entityBinder);
-
         Scene scene = new Scene(root);
         return scene;
     }
@@ -180,10 +159,6 @@ public class BlackjackApplication extends Application
     {
         FXMLLoader gamePanelFxmlLoader = new FXMLLoader(BlackjackApplication.class.getResource("game-view.fxml"));
         Parent root = gamePanelFxmlLoader.load();
-
-        //LoginView loginView = gamePanelFxmlLoader.getController();
-        //loginView.setEntityBinder(entityBinder);
-
         Scene scene = new Scene(root);
         return scene;
     }

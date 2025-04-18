@@ -11,7 +11,8 @@ import com.kyoxsu.blackjackfx.BlackjackApplication;
 import java.io.IOException;
 import javafx.scene.Scene;
 
-public class GameView {
+public class GameView
+{
 
     @FXML
     private Label bankGameLabel;
@@ -76,12 +77,14 @@ public class GameView {
     }
 
     @FXML
-    void onSplit(ActionEvent event) {
+    void onSplit(ActionEvent event)
+    {
 
     }
 
     @FXML
-    void onValidate(ActionEvent event) {
+    void onValidate(ActionEvent event)
+    {
 
     }
 
