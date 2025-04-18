@@ -1,5 +1,6 @@
 package com.kyoxsu.blackjackfx.views;
 
+import com.kyoxsu.blackjackfx.models.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -35,6 +36,12 @@ public class GameView {
 
     @FXML
     private Label totalBetField;
+
+    private Game game;
+
+    public void initialize(){
+        this.game = new Game();
+    }
 
     @FXML
     void onAssure(ActionEvent event) {

@@ -80,7 +80,6 @@ public class RoomView
 
         // TODO : Ajouter le verouillage du salon si le player est l'hôte
 
-
         try
         {
             Scene loadGameScene = BlackjackApplication.getInstance().loadGameScene();

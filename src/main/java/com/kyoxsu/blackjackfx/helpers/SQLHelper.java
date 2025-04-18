@@ -13,7 +13,6 @@ public class SQLHelper
 {
     private static final String URL = "jdbc:mysql://192.168.10.26:3306/blackjack";
     private static final String USER = "blackjackUser";
-    //private static final String PASSWORD = "Kyo100705tete*";
     private static final String PASSWORD = "azertyazerty";
 
     private static Connection con;
