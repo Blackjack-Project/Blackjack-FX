@@ -99,8 +99,6 @@ public class UserView
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        System.out.println(password); // 1234
-
         Player player = new Player(username, password);
 
         // --- Vérification si le nom d'utilisateur est le même
@@ -109,7 +107,8 @@ public class UserView
             // --- Si les deux mot de passe correspondent
             if (password.equals(confirmPassword))
             {
-                BlackjackApplication.player.copy(player);
+                BlackjackApplication.player.setPassword(password);
+                BlackjackApplication.player.writePlayer();
                 // ---
                 String message = "[OK] - Modifications sauvegardés avec succès";
                 errorLabel.setStyle("-fx-text-fill: green;");
@@ -131,7 +130,8 @@ public class UserView
                 // --- Si les deux mot de passe correspondent
                 if (password.equals(confirmPassword))
                 {
-                    BlackjackApplication.player.copy(player);
+                    BlackjackApplication.player.setUsername(username);
+                    BlackjackApplication.player.setPassword(password);
                     BlackjackApplication.player.writePlayer();
                     // ---
                     String message = "[OK] - Modifications sauvegardés avec succès";
