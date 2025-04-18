@@ -40,7 +40,6 @@ public class RoomBinder
                 Duration.millis(2000),
                 e ->
                 {
-                    System.out.println(lPlayers.size());
                     refreshRoom();
                 }
         ));

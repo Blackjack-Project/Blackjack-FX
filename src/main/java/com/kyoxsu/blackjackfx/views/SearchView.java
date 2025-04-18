@@ -84,7 +84,7 @@ public class SearchView
             Room room = Room.getRoomById(roomID.getText());
 
             // --- Vérification de la taille du salon
-            int sizeRoom = room.getlPlayers().size()-1;
+            int sizeRoom = room.getlPlayers().size();
             int maxPlayer = room.getMaxPlayer();
             if (maxPlayer - sizeRoom > 0)
             {
