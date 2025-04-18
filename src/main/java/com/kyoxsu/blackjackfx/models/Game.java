@@ -1,6 +1,11 @@
 package com.kyoxsu.blackjackfx.models;
 
 //------------------------------------------------------------------------------
+
+import com.kyoxsu.blackjackfx.BlackjackApplication;
+
+import java.util.ArrayList;
+
 /**
  * Cette classe représente le déroulement d'une partie de blackjack.
  *
@@ -15,6 +20,7 @@ public class Game
     public Player currentPlayer;
     public Deck gameDeck;
     public Room gameRoom;
+    public ArrayList<Card> bankGame = new ArrayList<>();
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
     public Game()
@@ -27,6 +33,13 @@ public class Game
     public void startGame()
     {
         this.gameDeck.shuffle(6);
+        for (int i = 0; i < 2; i++) {
+            for (Player player:
+                    this.gameRoom.getlPlayers()) {
+                player.getlCards().add(this.gameDeck.draw());
+            }
+            this.bankGame.add(this.gameDeck.draw());
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -42,9 +55,18 @@ public class Game
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public void endGame()
+    public void distribute()
     {
+        if (BlackjackApplication.player.getId() == this.currentPlayer.getId()){
+            this.currentPlayer.getlCards().add(this.gameDeck.draw());
+        }
+        this.nextRound();
+    }
 
+    public void bet(int bet){
+        /*if (BlackjackApplication.player.getId() == this.currentPlayer.getId()){
+            this.currentPlayer.
+        }*/
     }
 
     public int getRound() {

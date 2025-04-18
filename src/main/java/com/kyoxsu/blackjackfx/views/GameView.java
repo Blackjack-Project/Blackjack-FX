@@ -11,6 +11,8 @@ import com.kyoxsu.blackjackfx.BlackjackApplication;
 import java.io.IOException;
 import javafx.scene.Scene;
 
+import static java.lang.Integer.parseInt;
+
 public class GameView
 {
 
@@ -51,7 +53,7 @@ public class GameView
 
     @FXML
     void onDistribute(ActionEvent event) {
-
+        this.game.distribute();
     }
 
     @FXML
@@ -85,7 +87,8 @@ public class GameView
     @FXML
     void onValidate(ActionEvent event)
     {
-
+        int bet = parseInt(this.betField.getText());
+        this.game.bet(bet);
     }
 
 }
