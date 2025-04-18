@@ -73,8 +73,9 @@ public class RoomView
             }
 
             // --- Suppresion de la room
-            BlackjackApplication.player.deleteRoom(BlackjackApplication.room);
-            BlackjackApplication.room = null;
+            BlackjackApplication.room.setVisibility(false);                     // La room ne s'affichera plus
+            BlackjackApplication.player.deleteRoom(BlackjackApplication.room);  // Suppression du salon dans la base
+            BlackjackApplication.room = null;                                   // Réinitialisation de la room stockée
         }
 
         // --- On sauvegarde les informations du joueur

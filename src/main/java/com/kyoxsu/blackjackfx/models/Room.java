@@ -50,7 +50,7 @@ public class Room
 
         // --- Actualisation des données en permanence
         Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(2000),
+                Duration.millis(5000),
                 e ->
                 {
                     //System.out.println(lPlayers.size());
