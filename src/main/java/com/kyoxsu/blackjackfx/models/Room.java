@@ -110,9 +110,10 @@ public class Room
                     +" WHERE roomid = ?";
         }
         // ---
+        PreparedStatement pstmt = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
 
             // TODO : Voir si je ne peux pas mieux calculer que ça
             if (!inDb)
@@ -141,6 +142,7 @@ public class Room
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, null);
     }
 
     //--------------------------------------------------------------------------
@@ -151,20 +153,22 @@ public class Room
 
         // --- On ne récupère que les joueurs qui se trouvent dans le salon recherché
         String sql = "SELECT * FROM room WHERE roomid = ?";
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, roomId);
             // ---
-            ResultSet rs = pstmt.executeQuery();
+            res = pstmt.executeQuery();
             // ---
-            while (rs.next())
+            while (res.next())
             {
-                String name         = rs.getString("name");
-                boolean state       = rs.getBoolean("state");
-                boolean visibility  = rs.getBoolean("visibility");
-                String password     = rs.getString("password");
-                int maxPlayer       = rs.getInt("maxPlayer");
+                String name         = res.getString("name");
+                boolean state       = res.getBoolean("state");
+                boolean visibility  = res.getBoolean("visibility");
+                String password     = res.getString("password");
+                int maxPlayer       = res.getInt("maxPlayer");
                 // ---
                 setName(name);
                 setState(state);
@@ -181,6 +185,7 @@ public class Room
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, res);
     }
 
     //--------------------------------------------------------------------------
@@ -191,20 +196,22 @@ public class Room
         Connection con = SQLHelper.getConnection();
 
         // --- On ne récupère que les salles qui sont en attente de joueurs et qui sont public
-        String sql = "SELECT * FROM room WHERE state = 1 AND visibility = 1"; // TODO : Vérifier si cela fait bien des 0
+        String sql = "SELECT * FROM room WHERE state = 1 AND visibility = 1";
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery();
+            pstmt = con.prepareStatement(sql);
+            res = pstmt.executeQuery();
             // ---
-            while (rs.next())
+            while (res.next())
             {
-                String roomId       = rs.getString("roomId");
-                String name         = rs.getString("name");
-                boolean state       = rs.getBoolean("state");
-                boolean visibility  = rs.getBoolean("visibility");
-                String password     = rs.getString("password");
-                int maxPlayer       = rs.getInt("maxPlayer");
+                String roomId       = res.getString("roomId");
+                String name         = res.getString("name");
+                boolean state       = res.getBoolean("state");
+                boolean visibility  = res.getBoolean("visibility");
+                String password     = res.getString("password");
+                int maxPlayer       = res.getInt("maxPlayer");
 
                 // --- Création du salon
                 Room room = new Room(name, password, visibility, maxPlayer);
@@ -224,6 +231,7 @@ public class Room
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, res);
         return lRooms;
     }
 
@@ -234,21 +242,24 @@ public class Room
         Room room = null;
         Connection con = SQLHelper.getConnection();
 
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
+
         // --- On ne récupère que les salles qui sont en attente de joueurs et qui sont public
         String sql = "SELECT * FROM room WHERE roomid = ?"; // TODO : Vérifier si cela fait bien des 0
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, roomId);
-            ResultSet rs = pstmt.executeQuery();
+            res = pstmt.executeQuery();
             // ---
-            if (rs.next())
+            if (res.next())
             {
-                String name         = rs.getString("name");
-                boolean state       = rs.getBoolean("state");
-                boolean visibility  = rs.getBoolean("visibility");
-                String password     = rs.getString("password");
-                int maxPlayer       = rs.getInt("maxPlayer");
+                String name         = res.getString("name");
+                boolean state       = res.getBoolean("state");
+                boolean visibility  = res.getBoolean("visibility");
+                String password     = res.getString("password");
+                int maxPlayer       = res.getInt("maxPlayer");
 
                 // --- Création du salon
                 room = new Room(name, password, visibility, maxPlayer);
@@ -265,6 +276,7 @@ public class Room
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, res);
         return room;
     }
 

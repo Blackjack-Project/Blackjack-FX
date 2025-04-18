@@ -70,11 +70,13 @@ public class Player
 
         // --- Vérification de l'existence du joueur
         String sql = "SELECT * FROM player WHERE id = ?";
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, id);
-            ResultSet res = pstmt.executeQuery();
+            res = pstmt.executeQuery();
 
             // --- Si on a un résultat, on dit que c'est vrai
             if (res.next())
@@ -86,6 +88,7 @@ public class Player
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, res);
         return inDb;
     }
 
@@ -98,11 +101,13 @@ public class Player
 
         // --- Vérification de l'existence du joueur
         String sql = "SELECT * FROM player WHERE username = ?";
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, username);
-            ResultSet res = pstmt.executeQuery();
+            res = pstmt.executeQuery();
 
             // --- Si on a un résultat, on dit que c'est vrai
             if (res.next())
@@ -114,6 +119,7 @@ public class Player
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, res);
         return isUsernameAlreadyUsed;
     }
 
@@ -126,11 +132,13 @@ public class Player
 
         // --- Vérification de l'existence du joueur
         String sql = "SELECT * FROM player WHERE username = ?";
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, username);
-            ResultSet res = pstmt.executeQuery();
+            res = pstmt.executeQuery();
 
             // --- Si on a un résultat, on dit que c'est vrai
             if (res.next())
@@ -163,6 +171,7 @@ public class Player
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, res);
         return player;
     }
 
@@ -207,9 +216,10 @@ public class Player
             encodeCards();
         }
         // ---
+        PreparedStatement pstmt = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             pstmt.setBoolean(3, role);
@@ -232,6 +242,7 @@ public class Player
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, null);
     }
 
     //--------------------------------------------------------------------------
@@ -242,22 +253,24 @@ public class Player
 
         // --- On ne récupère que les joueurs qui se trouvent dans le salon recherché
         String sql = "SELECT * FROM player WHERE username = ?";
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, username);
             // ---
-            ResultSet rs = pstmt.executeQuery();
+            res = pstmt.executeQuery();
             // ---
-            while (rs.next())
+            while (res.next())
             {
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                boolean role    = rs.getBoolean("role");
-                double money    = rs.getDouble("money");
-                String room     = rs.getString("room");
-                int position    = rs.getInt("position");
-                String cards    = rs.getString("cards");
+                String username = res.getString("username");
+                String password = res.getString("password");
+                boolean role    = res.getBoolean("role");
+                double money    = res.getDouble("money");
+                String room     = res.getString("room");
+                int position    = res.getInt("position");
+                String cards    = res.getString("cards");
                 // ---
                 setUsername(username);
                 setPassword(password);
@@ -275,6 +288,7 @@ public class Player
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, res);
     }
 
     //--------------------------------------------------------------------------
@@ -320,8 +334,9 @@ public class Player
 
         Connection con = SQLHelper.getConnection();
         String sql = "DELETE FROM room WHERE roomId = ?";
+        PreparedStatement pstmt = null;
         try
-        {   PreparedStatement pstmt = con.prepareStatement(sql);
+        {   pstmt = con.prepareStatement(sql);
             pstmt.setString(1, room.getRoomId());
 
             int lignesModifiees = pstmt.executeUpdate();
@@ -331,6 +346,7 @@ public class Player
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, null);
     }
 
     //--------------------------------------------------------------------------
@@ -342,21 +358,23 @@ public class Player
 
         // --- On ne récupère que les joueurs qui se trouvent dans le salon recherché
         String sql = "SELECT * FROM player WHERE room = ?";
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, roomId);
             // ---
-            ResultSet rs = pstmt.executeQuery();
+            res = pstmt.executeQuery();
             // ---
-            while (rs.next())
+            while (res.next())
             {
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                boolean role    = rs.getBoolean("role");
-                double money    = rs.getDouble("money");
-                String room     = rs.getString("room"); // A voir si on le supprime
-                int position    = rs.getInt("position");
+                String username = res.getString("username");
+                String password = res.getString("password");
+                boolean role    = res.getBoolean("role");
+                double money    = res.getDouble("money");
+                String room     = res.getString("room"); // A voir si on le supprime
+                int position    = res.getInt("position");
 
                 // --- Création du joueur
                 Player player = new Player(username, password);
@@ -376,6 +394,7 @@ public class Player
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, res);
         return lPlayers;
     }
 

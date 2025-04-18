@@ -1,5 +1,13 @@
 package com.kyoxsu.blackjackfx.models;
 
+import com.kyoxsu.blackjackfx.helpers.SQLHelper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 //------------------------------------------------------------------------------
 /**
@@ -28,11 +36,39 @@ public class Card
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public static ArrayList<Card> getAllCards()
+    public static ObservableList<Card> getAllCards()
     {
-        // On récupère via la base toutes les cartes et on les transforme en objet java
-        // On renvoie une liste de carte
-        return null;
+        ObservableList<Card> lCards = FXCollections.observableArrayList();
+        Connection con = SQLHelper.getConnection();
+
+        // --- On ne récupère que les joueurs qui se trouvent dans le salon recherché
+        String sql = "SELECT * FROM card";
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
+        try
+        {
+            pstmt = con.prepareStatement(sql);
+            res = pstmt.executeQuery();
+            // ---
+            while (res.next())
+            {
+                String fullName = res.getString("full_name");
+                String shortName = res.getString("short_name");
+                int value = res.getInt("value");
+
+                // --- Création du joueur
+                Card card = new Card(fullName, shortName, 0);
+
+                // --- Ajout de la carte a la liste
+                lCards.add(card);
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        SQLHelper.close(pstmt, res);
+        return lCards;
     }
 
     //--------------------------------------------------------------------------
