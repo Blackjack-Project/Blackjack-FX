@@ -3,6 +3,7 @@ package com.kyoxsu.blackjackfx.views;
 import com.kyoxsu.blackjackfx.BlackjackApplication;
 import com.kyoxsu.blackjackfx.binders.RoomBinder;
 import com.kyoxsu.blackjackfx.models.Player;
+import com.kyoxsu.blackjackfx.models.Room;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +29,6 @@ public class RoomView
     public void setRoomBinder(RoomBinder roomBinder)
     {
         playerList.itemsProperty().bind(roomBinder.lPlayersProperty());
-        System.out.println("Liste des joueurs : " + roomBinder.getlPlayers());
 
         playerList.setCellFactory(param -> new ListCell<>()
         {
@@ -59,6 +59,25 @@ public class RoomView
 
         // --- On réinitialise la position du joueur
         BlackjackApplication.player.setPosition(-1);
+
+        // --- Seul l'hote peut supprimer le salon
+        boolean isHost = BlackjackApplication.player.isRole();
+        if (isHost)
+        {
+            Room room = BlackjackApplication.room;
+            ObservableList<Player> lPlayers= room.getlPlayers();
+            for (Player player : lPlayers)
+            {
+                player.setRoom(null);
+                player.writePlayer();
+            }
+
+            // --- Suppresion de la room
+            BlackjackApplication.player.deleteRoom(BlackjackApplication.room);
+        }
+
+        // --- On sauvegarde les informations du joueur
+        BlackjackApplication.player.writePlayer();
 
         try
         {

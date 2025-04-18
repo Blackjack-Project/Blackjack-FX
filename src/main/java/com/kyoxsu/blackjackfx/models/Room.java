@@ -70,9 +70,10 @@ public class Room
 
         // --- Vérification de l'existence du joueur
         String sql = "SELECT * FROM room WHERE roomid = ?";
+        PreparedStatement pstmt = null;
         try
         {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, roomId);
             ResultSet res = pstmt.executeQuery();
 
@@ -86,6 +87,7 @@ public class Room
         {
             throw new RuntimeException(e);
         }
+        SQLHelper.close(pstmt, null);
         return inDb;
     }
 

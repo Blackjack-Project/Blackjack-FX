@@ -330,8 +330,6 @@ public class Player
     //--------------------------------------------------------------------------
     public void deleteRoom(Room room)
     {
-        // Permet de supprimer le salon, si le joueur est l'hôte de celui-ci
-
         Connection con = SQLHelper.getConnection();
         String sql = "DELETE FROM room WHERE roomId = ?";
         PreparedStatement pstmt = null;
