@@ -229,6 +229,47 @@ public class Room
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
+    public static Room getRoomById(String roomId) // Affichage de la liste des salons
+    {
+        Room room = null;
+        Connection con = SQLHelper.getConnection();
+
+        // --- On ne récupère que les salles qui sont en attente de joueurs et qui sont public
+        String sql = "SELECT * FROM room WHERE roomid = ?"; // TODO : Vérifier si cela fait bien des 0
+        try
+        {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, roomId);
+            ResultSet rs = pstmt.executeQuery();
+            // ---
+            if (rs.next())
+            {
+                String name         = rs.getString("name");
+                boolean state       = rs.getBoolean("state");
+                boolean visibility  = rs.getBoolean("visibility");
+                String password     = rs.getString("password");
+                int maxPlayer       = rs.getInt("maxPlayer");
+
+                // --- Création du salon
+                room = new Room(name, password, visibility, maxPlayer);
+                room.setRoomId(roomId);
+                room.setState(state);
+                room.setMaxPlayer(maxPlayer);
+
+                // --- Récupération de tous les joueurs présents dans le salon
+                ObservableList<Player> lPlayers = Player.getAllPlayers(room.getRoomId());
+                room.setlPlayers(lPlayers);
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        return room;
+    }
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     public String getRoomId()
     {
         return roomId;

@@ -54,6 +54,8 @@ public class GameView {
     @FXML
     void onLeave(ActionEvent event)
     {
+        // TODO : Supprimer la room pour tous les joueurs si c'est l'hôte qui
+        // la supprime
         try
         {
             Scene loadMainScene = BlackjackApplication.getInstance().loadMainScene();

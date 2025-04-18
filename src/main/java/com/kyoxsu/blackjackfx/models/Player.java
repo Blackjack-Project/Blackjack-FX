@@ -284,6 +284,7 @@ public class Player
         // --- Récupération de l'id de la room
         String roomId = room.getRoomId();
         setRoom(roomId);
+        setPosition(room.getlPlayers().size()+1);
         writePlayer();
 
         BlackjackApplication.room = room;
