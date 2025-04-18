@@ -1,6 +1,12 @@
 package com.kyoxsu.blackjackfx;
 
+import com.kyoxsu.blackjackfx.binders.PlayerBinder;
+import com.kyoxsu.blackjackfx.binders.RoomBinder;
+import com.kyoxsu.blackjackfx.helpers.SQLHelper;
 import com.kyoxsu.blackjackfx.models.Player;
+import com.kyoxsu.blackjackfx.models.Room;
+import com.kyoxsu.blackjackfx.views.RoomView;
+import com.kyoxsu.blackjackfx.views.UserView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,15 +26,19 @@ import java.io.IOException;
 public class BlackjackApplication extends Application
 {
     public static Player player = null;
+    public static Room room = null;
     // ---
     private Stage stage = new Stage();
     private static BlackjackApplication application;
-    //private static EntityBinder entityBinder;
 
     @Override
     public void start(Stage stage) throws IOException
     {
+        // --- Initialisation de la connexion a la base de données
+        SQLHelper.getConnection();
+
         // TODO : Compléter le reste pour l'architechture MVVM
+
         // --- Construction du MVVM
         //EntityModel entityModel = new EntityModel();
         //EntityBinder entityBinder = new EntityBinder(entityModel);
@@ -44,19 +54,22 @@ public class BlackjackApplication extends Application
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch();
     }
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public static BlackjackApplication getInstance() {
+    public static BlackjackApplication getInstance()
+    {
         return application;
     }
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public Stage getStage() {
+    public Stage getStage()
+    {
         return stage;
     }
     //--------------------------------------------------------------------------
@@ -70,6 +83,7 @@ public class BlackjackApplication extends Application
         //loginView.setEntityBinder(entityBinder);
 
         Scene scene = new Scene(root);
+        //Scene scene = new Scene(root, 600, 800); // TODO : A tester
         return scene;
     }
 
@@ -94,8 +108,9 @@ public class BlackjackApplication extends Application
         FXMLLoader userPanelFxmlLoader = new FXMLLoader(BlackjackApplication.class.getResource("user-view.fxml"));
         Parent root = userPanelFxmlLoader.load();
 
-        //LoginView loginView = userPanelFxmlLoader.getController();
-        //loginView.setEntityBinder(entityBinder);
+        PlayerBinder playerBinder = new PlayerBinder(player);
+        UserView userView = userPanelFxmlLoader.getController();
+        userView.setPlayerBinder(playerBinder);
 
         Scene scene = new Scene(root);
         return scene;
@@ -150,8 +165,9 @@ public class BlackjackApplication extends Application
         FXMLLoader roomPanelFxmlLoader = new FXMLLoader(BlackjackApplication.class.getResource("room-view.fxml"));
         Parent root = roomPanelFxmlLoader.load();
 
-        //LoginView loginView = roomPanelFxmlLoader.getController();
-        //loginView.setEntityBinder(entityBinder);
+        RoomBinder roomBinder = new RoomBinder(room);
+        RoomView roomView = roomPanelFxmlLoader.getController();
+        roomView.setRoomBinder(roomBinder);
 
         Scene scene = new Scene(root);
         return scene;

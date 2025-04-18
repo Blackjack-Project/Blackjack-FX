@@ -1,31 +1,70 @@
 package com.kyoxsu.blackjackfx.views;
 
 import com.kyoxsu.blackjackfx.BlackjackApplication;
+import com.kyoxsu.blackjackfx.binders.RoomBinder;
+import com.kyoxsu.blackjackfx.models.Player;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
 
-public class RoomView {
-
+public class RoomView
+{
+    private RoomBinder roomBinder;
+    // ---
     @FXML
-    private ListView<?> playerList;
-
+    private ListView<Player> playerList;
     @FXML
     private Label playerSoldLabel;
-
     @FXML
     private Label roomInfoLabel;
-
     @FXML
     private Label roomTitleLabel;
+
+    public void setRoomBinder(RoomBinder roomBinder)
+    {
+        // TODO : Faire un binding pour actualiser la liste de joueurs
+
+        // La liste est nulle donc les données ne remontent pas bien
+
+        playerList.itemsProperty().bind(roomBinder.lPlayersProperty());
+        System.out.println("Liste des joueurs : " + roomBinder.getlPlayers());
+
+        playerList.setCellFactory(param -> new ListCell<>()
+        {
+            @Override
+            protected void updateItem(Player player, boolean empty)
+            {
+                super.updateItem(player, empty);
+                if (empty || player == null)
+                {
+                    setText(null);
+                }
+                else
+                {
+                    setText(player.getUsername());
+                }
+            }
+        });
+    }
 
     @FXML
     void onLeave(ActionEvent event)
     {
+        // --- On supprime l'id de la room dans le joueur
+        BlackjackApplication.player.leaveRoom();
+
+        // --- On réinitialise le role de joueur à "joueur"
+        BlackjackApplication.player.setRole(false);
+
+        // --- On réinitialise la position du joueur
+        BlackjackApplication.player.setPosition(-1);
+
         try
         {
             Scene loadMainScene = BlackjackApplication.getInstance().loadMainScene();
@@ -42,6 +81,10 @@ public class RoomView {
     void onReady(ActionEvent event)
     {
         // TODO : Faire les différents calculs pour savoir quand la partie se lance
+
+        // TODO : Ajouter le verouillage du salon
+
+
         try
         {
             Scene loadGameScene = BlackjackApplication.getInstance().loadGameScene();

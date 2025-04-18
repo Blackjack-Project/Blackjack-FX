@@ -1,6 +1,7 @@
 package com.kyoxsu.blackjackfx.views;
 
 import com.kyoxsu.blackjackfx.BlackjackApplication;
+import com.kyoxsu.blackjackfx.models.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -10,34 +11,60 @@ import java.io.IOException;
 
 public class CreateRoomView
 {
+    private static boolean isRoomPublic;
+    // ---
     @FXML
     private ToggleGroup RadioGroup;
-
     @FXML
     private Label errorLabel;
-
     @FXML
     private Slider playerNumberSlider;
-
     @FXML
     private TextField roomNameField;
-
     @FXML
     private PasswordField roomPasswordField;
 
-    @FXML
-    void onPrivateSelected(ActionEvent event) {
-
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    public void initialize()
+    {
+        isRoomPublic = true;
     }
 
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     @FXML
-    void onPublicSelected(ActionEvent event) {
-
+    void onPrivateSelected(ActionEvent event)
+    {
+        isRoomPublic = false;
+        roomPasswordField.setDisable(false);
     }
 
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    @FXML
+    void onPublicSelected(ActionEvent event)
+    {
+        isRoomPublic = true;
+        roomPasswordField.setDisable(true);
+    }
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     @FXML
     void onCreateRoom(ActionEvent event)
     {
+        // --- Passage du role du joueur à "hôte"
+        BlackjackApplication.player.setRole(true);
+
+        // --- On définie l'hôte comme le premier joueur de la partie
+        BlackjackApplication.player.setPosition(1);
+
+        // --- Création de la room & sauvegarde du joueur
+        String password = roomPasswordField.getText();
+        int maxPlayer = (int) playerNumberSlider.getValue();
+        BlackjackApplication.player.createRoom(password, isRoomPublic, maxPlayer);
+
         try
         {
             Scene loadRoomScene = BlackjackApplication.getInstance().loadRoomScene();
@@ -50,6 +77,8 @@ public class CreateRoomView
         }
     }
 
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     @FXML
     void onReturn(ActionEvent event)
     {

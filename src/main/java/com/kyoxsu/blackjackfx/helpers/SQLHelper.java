@@ -37,7 +37,7 @@ public class SQLHelper
             {
                 System.out.println("Connexion établie avec succès");
             }
-            con = con;
+            SQLHelper.con = con;
         }
         else
         {
