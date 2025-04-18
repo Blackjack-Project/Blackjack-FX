@@ -120,6 +120,9 @@ public class SearchView
                 {
                     try
                     {
+                        BlackjackApplication.room = room;
+                        BlackjackApplication.player.joinRoom(BlackjackApplication.room);
+
                         Scene loadRoomScene = BlackjackApplication.getInstance().loadRoomScene();
                         BlackjackApplication.getInstance().getStage().setScene(loadRoomScene);
                         BlackjackApplication.getInstance().getStage().setMaximized(true);

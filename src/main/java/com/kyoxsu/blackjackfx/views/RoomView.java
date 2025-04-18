@@ -28,10 +28,6 @@ public class RoomView
 
     public void setRoomBinder(RoomBinder roomBinder)
     {
-        // TODO : Faire un binding pour actualiser la liste de joueurs
-
-        // La liste est nulle donc les données ne remontent pas bien
-
         playerList.itemsProperty().bind(roomBinder.lPlayersProperty());
         System.out.println("Liste des joueurs : " + roomBinder.getlPlayers());
 
@@ -80,9 +76,9 @@ public class RoomView
     @FXML
     void onReady(ActionEvent event)
     {
-        // TODO : Faire les différents calculs pour savoir quand la partie se lance
+        // TODO : Passer le statut du joueur à ready
 
-        // TODO : Ajouter le verouillage du salon
+        // TODO : Ajouter le verouillage du salon si le player est l'hôte
 
 
         try
