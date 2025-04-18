@@ -74,6 +74,7 @@ public class RoomView
 
             // --- Suppresion de la room
             BlackjackApplication.player.deleteRoom(BlackjackApplication.room);
+            BlackjackApplication.room = null;
         }
 
         // --- On sauvegarde les informations du joueur

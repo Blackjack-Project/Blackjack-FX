@@ -61,9 +61,10 @@ public class CreateRoomView
         BlackjackApplication.player.setPosition(1);
 
         // --- Création de la room & sauvegarde du joueur
+        String name = roomNameField.getText();
         String password = roomPasswordField.getText();
         int maxPlayer = (int) playerNumberSlider.getValue();
-        BlackjackApplication.player.createRoom(password, isRoomPublic, maxPlayer);
+        BlackjackApplication.player.createRoom(name, password, isRoomPublic, maxPlayer);
 
         try
         {

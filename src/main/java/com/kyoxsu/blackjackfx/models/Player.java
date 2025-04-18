@@ -185,7 +185,6 @@ public class Player
         setPassword(player.getPassword());
 
         // TODO : Le problème vient d'ici 1234 devient 12345 (l'ancien mdp)
-        System.out.println(player.getPassword());
 
         // --- Sauvegarde des informations modifiées
         writePlayer();
@@ -314,10 +313,8 @@ public class Player
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    public void createRoom(String password, boolean visibility, int maxPlayer)
+    public void createRoom(String name, String password, boolean visibility, int maxPlayer)
     {
-        String name = username+"'s room";
-
         // --- Création du salon
         Room room = new Room(name, password, visibility, maxPlayer);
         room.writeRoom();
