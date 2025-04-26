@@ -44,6 +44,34 @@ INSERT INTO `card` VALUES (1,'Two of Spade','2♠',2),(2,'Three of Spade','3♠'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `game`
+--
+
+DROP TABLE IF EXISTS `game`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `game` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `turn` int NOT NULL,
+  `deck` varchar(500) NOT NULL,
+  `room` int NOT NULL,
+  `bank_game` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `room-game_idx` (`room`),
+  CONSTRAINT `room-game` FOREIGN KEY (`room`) REFERENCES `room` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `game`
+--
+
+LOCK TABLES `game` WRITE;
+/*!40000 ALTER TABLE `game` DISABLE KEYS */;
+/*!40000 ALTER TABLE `game` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `player`
 --
 
@@ -57,12 +85,12 @@ CREATE TABLE `player` (
   `role` tinyint NOT NULL DEFAULT '0',
   `cards` varchar(150) DEFAULT NULL,
   `money` int NOT NULL DEFAULT '0',
-  `room` int DEFAULT NULL,
-  `position` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `player_room_idx` (`room`),
-  CONSTRAINT `player_room` FOREIGN KEY (`room`) REFERENCES `room` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `room` varchar(45) DEFAULT NULL,
+  `position` int NOT NULL DEFAULT '0',
+  `ready` tinyint NOT NULL DEFAULT '0',
+  `bet` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,6 +99,7 @@ CREATE TABLE `player` (
 
 LOCK TABLES `player` WRITE;
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
+INSERT INTO `player` VALUES (2,'Kyo','12345',1,NULL,0,NULL,1,0,0),(7,'Test','Test',0,NULL,0,NULL,-1,0,0);
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,13 +112,14 @@ DROP TABLE IF EXISTS `room`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `roomid` int NOT NULL,
+  `roomid` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
   `state` tinyint NOT NULL DEFAULT '1',
   `visibility` tinyint NOT NULL DEFAULT '1',
   `password` varchar(45) DEFAULT NULL,
+  `maxPlayer` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,4 +140,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-16 14:02:46
+-- Dump completed on 2025-04-18 11:15:36
